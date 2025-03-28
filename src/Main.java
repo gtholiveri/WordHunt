@@ -5,9 +5,9 @@ Final Project: Word Hunt
  */
 
 import java.awt.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 import javax.swing.*;
 
 public class Main {
@@ -20,7 +20,7 @@ public class Main {
 class GUI {
     private JFrame frame;
     private JButton[][] buttons;
-
+    private Random random = new Random();
     public GUI(int width, int height){
         // Creates frame with specified name and dimensions
         frame = new JFrame("Tic-Tac-Toe");
@@ -34,10 +34,10 @@ class GUI {
         // Creates a button for each section of the panel with a specific action
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                buttons[i][j] = new JButton("");
+                buttons[i][j] = new JButton(generateRandomLetter());
                 buttons[i][j].setFont(new Font("Arial", Font.PLAIN, 40));
                 // ButtonClickListener is a nested class of Homework18
-                buttons[i][j].addActionListener(new ButtonClickListener(i, j));
+                buttons[i][j].addActionListener(new ButtonClickListener(i, j, buttons, random));
                 panel.add(buttons[i][j]);
             }
         }
@@ -46,18 +46,23 @@ class GUI {
         frame.getContentPane().add(panel);
         frame.setVisible(true);
     }
-
+    private String generateRandomLetter() {
+        char letter = (char) ('A' + random.nextInt(26));
+        return String.valueOf(letter);
+    }
     private class ButtonClickListener implements ActionListener {
         private int row, col;
-        // Constructor that takes in an integer number of rows and columns
-        public ButtonClickListener(int row, int col) {
+        private JButton[][] buttons;
+        private Random random;
+
+        public ButtonClickListener(int row, int col, JButton[][] buttons, Random random) {
             this.row = row;
             this.col = col;
+            this.buttons = buttons;
+            this.random = random;
         }
+
         public void actionPerformed(ActionEvent e) {
-            if (!buttons[row][col].getText().equals("")) {
-                return; // Prevents overwriting a square after it's already been clicked
-            }
 
         }
     }
