@@ -12,7 +12,6 @@ import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.print("Hello world");
         new GUI(500, 500);
     }
 }
@@ -23,7 +22,7 @@ class GUI {
     private Random random = new Random();
     public GUI(int width, int height){
         // Creates frame with specified name and dimensions
-        frame = new JFrame("Tic-Tac-Toe");
+        frame = new JFrame("Word Hunt");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(width,height);
         frame.setMinimumSize(new Dimension(200,200));
