@@ -7,7 +7,11 @@ Final Project: Word Hunt
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 import javax.swing.*;
 
 public class Main {
@@ -64,5 +68,33 @@ class GUI {
         public void actionPerformed(ActionEvent e) {
 
         }
+    }
+}
+class ReadFileAndSearch {
+    ArrayList<String> words = new ArrayList<>();
+    public void read(String filename) throws FileNotFoundException {
+        Scanner scanner = new Scanner(new File("src/" + filename));
+        while (scanner.hasNextLine()){
+            String line = scanner.nextLine();
+            words.add(line);
+        }
+        scanner.close();
+    }
+    public int binarySearchWord(String target, int lo, int hi) {
+        if (lo > hi) {
+            return -1;
+        }
+        int mid = (lo + hi) / 2;
+        int comparison = words.get(mid).compareTo(target);
+        if (comparison == 0) {
+            return mid;
+        } else if (comparison < 0) {
+            return binarySearchWord(target, mid + 1, hi);
+        } else {
+            return binarySearchWord(target, lo, mid - 1);
+        }
+    }
+    public int searchWord(String target) {
+        return binarySearchWord(target, 0, words.size() - 1);
     }
 }
