@@ -16,6 +16,20 @@ import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
+        Dictionary dictionary = new Dictionary();
+        try {
+            dictionary.read("dictionary.txt");
+            //will need to put dictionary file in here
+        } catch (FileNotFoundException e) {
+            System.out.println("file not found");
+        }
+
+        String searchWord = "hello";
+        //once we make a method that gets user input as a word, we can use this
+        if (dictionary.searchWord(searchWord)) {
+            //points += 400 or something
+            return;
+        }
         new GUI(500, 500);
     }
 }
@@ -70,7 +84,7 @@ class GUI {
         }
     }
 }
-class ReadFileAndSearch {
+class Dictionary {
     ArrayList<String> words = new ArrayList<>();
     public void read(String filename) throws FileNotFoundException {
         Scanner scanner = new Scanner(new File("src/" + filename));
@@ -94,7 +108,7 @@ class ReadFileAndSearch {
             return binarySearchWord(target, lo, mid - 1);
         }
     }
-    public int searchWord(String target) {
-        return binarySearchWord(target, 0, words.size() - 1);
+    public boolean searchWord(String target) {
+        return (binarySearchWord(target, 0, words.size() - 1) != -1);
     }
 }
